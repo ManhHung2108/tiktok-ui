@@ -14,7 +14,7 @@ const cx = classNames.bind(styles);
 //default function
 const defaultfn = () => {};
 
-function Menu({ children, items = [], onChange = defaultfn }) {
+function Menu({ children, items = [], hideOnClick = false, onChange = defaultfn }) {
     //đầu tiên là obj cấp đầu tiên
     const [history, setHistory] = useState([{ data: items }]);
 
@@ -76,6 +76,7 @@ function Menu({ children, items = [], onChange = defaultfn }) {
             onHidden={() => {
                 setHistory((prev) => prev.slice(0, 1));
             }}
+            hideOnClick={hideOnClick}
         >
             {children}
         </Tippy>

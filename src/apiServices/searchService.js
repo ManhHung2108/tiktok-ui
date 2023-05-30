@@ -10,5 +10,7 @@ export const search = async (q, type = 'less') => {
             },
         });
         return res.data;
-    } catch (err) {}
+    } catch (err) {
+        console.log(err);
+    }
 };

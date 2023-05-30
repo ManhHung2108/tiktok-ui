@@ -5,8 +5,9 @@ import HeadlessTippy from '@tippyjs/react/headless';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 //file của chúng ta
-//import request from '~/utils/request';
-import * as searchService from '~/apiServices/searchService'; //lấy từng cái lẻ đưa vào obj searchService
+
+// import * as request from '~/utils/request';
+import * as searchServices from '~/apiServices/searchService'; //lấy từng cái lẻ đưa vào obj searchService
 import { faCircleXmark, faSpinner, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
@@ -57,10 +58,13 @@ function Search() {
 
         //Tách file riêng
         const fetchApi = async () => {
-            const result = await searchService.search(debounced);
+            setLoading(true);
+            const result = await searchServices.search(debounced);
+            //console.log(result);
             setSearchResult(result);
             setLoading(false);
         };
+        fetchApi();
 
         //Cài axios: npm install axios
         //sử dụng axios lấy dữ liệu từ api thay cho fetch
@@ -73,7 +77,7 @@ function Search() {
         //         },
         //     })
         //     .then((res) => {
-        //         //console.log(res);
+        //         console.log(res);
 
         //         setSearchResult(res.data);
         //         setLoading(false);
@@ -110,6 +114,14 @@ function Search() {
         setShowResult(false);
     };
 
+    const handleChange = (event) => {
+        const searchValue = event.target.value;
+        //check không cho nhập dấu cách đầu tiên
+        if (!searchValue.startsWith(' ')) {
+            setSearchValue(searchValue);
+        }
+    };
+
     return (
         <HeadlessTippy
             interactive
@@ -135,7 +147,7 @@ function Search() {
                     value={searchValue}
                     placeholder="Search account and videos"
                     spellCheck={false}
-                    onChange={(e) => setSearchValue(e.target.value)}
+                    onChange={handleChange}
                     onFocus={() => {
                         setShowResult(true);
                     }}
@@ -150,7 +162,14 @@ function Search() {
 
                 {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
 
-                <button className={cx('search-btn')}>
+                <button
+                    className={cx('search-btn')}
+                    onMouseDown={(e) => {
+                        //Xử lý chặn hành vi mặc định khi click chuột xuống
+                        //không cho focus css vào
+                        e.preventDefault();
+                    }}
+                >
                     <SearchIcon />
                 </button>
             </div>

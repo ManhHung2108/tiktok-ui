@@ -125,6 +125,7 @@ function Search() {
     return (
         <HeadlessTippy
             interactive
+            // appendTo={() => document.body}
             visible={showResult && searchResult.length > 0}
             render={(attrs) => {
                 return (

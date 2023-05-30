@@ -1,7 +1,7 @@
 export default function Home() {
     return (
         <div>
-            <h1>Home page</h1>
+            <h2 style={{ height: '2000px' }}>Home page</h2>
         </div>
     );
 }

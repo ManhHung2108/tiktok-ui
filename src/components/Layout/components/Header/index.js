@@ -121,7 +121,10 @@ export default function Header() {
                     <img src={images.logo} alt="Tiktok" />
                 </Link>
 
-                <Search />
+                {/* Using a wrapper <div> tag around the reference element solves this by creating a new parentNode context.  */}
+                <div>
+                    <Search />
+                </div>
 
                 <div className={cx('actions')}>
                     {currentUser ? (

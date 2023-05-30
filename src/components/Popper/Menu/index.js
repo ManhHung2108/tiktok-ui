@@ -50,9 +50,9 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultfn 
     return (
         <Tippy
             interactive
-            // visible //luon hien
+            //visible //luon hien
             delay={[0, 700]} //show luôn, hide sau 700ms
-            offset={[12, 8]} //chiều ngang, chiều cao
+            offset={[12, 8]} //chiều ngang, chiều cao cách so với thẻ cha
             placement="bottom-end"
             render={(attrs) => {
                 return (
@@ -68,7 +68,7 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultfn 
                                     }}
                                 />
                             )}
-                            {renderItems()}
+                            <div className={cx('menu-body')}>{renderItems()}</div>
                         </PopperWrapper>
                     </div>
                 );

@@ -23,7 +23,7 @@ function Search() {
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
 
-    const debounced = useDebounce(searchValue, 500);
+    const debouncedValue = useDebounce(searchValue, 500);
 
     //console.log('1');
 
@@ -31,7 +31,7 @@ function Search() {
 
     useEffect(() => {
         //không có thì thoát
-        if (!debounced.trim()) {
+        if (!debouncedValue.trim()) {
             setSearchResult([]);
             return;
         }
@@ -44,7 +44,7 @@ function Search() {
         //         //await luôn nằm trươc promise, do hàm request.get trả về 1 promise
         //         const res = await request.get('users/search', {
         //             params: {
-        //                 q: debounced,
+        //                 q: debouncedValue,
         //                 type: 'less',
         //             },
         //         });
@@ -59,7 +59,7 @@ function Search() {
         //Tách file riêng
         const fetchApi = async () => {
             setLoading(true);
-            const result = await searchServices.search(debounced);
+            const result = await searchServices.search(debouncedValue);
             //console.log(result);
             setSearchResult(result);
             setLoading(false);
@@ -72,7 +72,7 @@ function Search() {
         // request
         //     .get(`users/search`, {
         //         params: {
-        //             q: debounced,
+        //             q: debouncedValue,
         //             type: 'less',
         //         },
         //     })
@@ -92,7 +92,7 @@ function Search() {
 
         //- Mã hóa dữ liệu sang định khác khi truyền vào url
         //để nhỡ đụng chạm các ký tự gây hiểu nhầm url thì sẽ mã hóa đi thành ký tự hợp lệ
-        // fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
+        // fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debouncedValue)}&type=less`)
         //     .then((res) => res.json())
         //     .then((res) => {
         //         setSearchResult(res.data);
@@ -101,7 +101,7 @@ function Search() {
         //     .catch(() => {
         //         setLoading(false);
         //     });
-    }, [debounced]);
+    }, [debouncedValue]);
 
     //Bấm clear xóa bỏ text input, xóa kết quả tìm kiếm đi, focus lại input
     const handleClear = () => {
@@ -122,6 +122,7 @@ function Search() {
         }
     };
 
+    //console.log(1);
     return (
         <HeadlessTippy
             interactive
@@ -133,6 +134,7 @@ function Search() {
                         <PopperWrapper>
                             <h4 className={cx('search-title')}>Account</h4>
                             {searchResult.map((result) => {
+                                console.log('tippy');
                                 return <AccountItem key={result.id} data={result} />;
                             })}
                         </PopperWrapper>

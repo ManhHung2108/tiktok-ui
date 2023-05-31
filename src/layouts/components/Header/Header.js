@@ -76,7 +76,7 @@ const MENU_ITEMS = [
 
 // console.log(images.logo);
 function Header() {
-    const currentUser = true;
+    const currentUser = false;
 
     //Handle logic
     const handleMenuChange = (menuItem) => {

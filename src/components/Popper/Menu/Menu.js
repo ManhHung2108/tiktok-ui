@@ -21,7 +21,7 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultfn 
     //phần tử cuối của obj
     const current = history[history.length - 1];
 
-    //Hàm render
+    //Hàm render submenu
     const renderItems = () => {
         return current.data.map((item, index) => {
             //check xem có children không
@@ -34,7 +34,6 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultfn 
                     onClick={() => {
                         if (isParent) {
                             //console.log(item.children);
-
                             setHistory((prev) => [...prev, item.children]);
                             //push thêm vào mảng tí mới quay lại được
                             //nếu setState không thêm mảng sẽ mất
@@ -47,7 +46,30 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultfn 
         });
     };
 
-    //
+    //Hàm back menu
+    const handleBack = () => {
+        //xóa đi phần tử cuối
+        //cắt lấy từ 0 đến phần tử gần cuối
+        setHistory((prev) => prev.slice(0, prev.length - 1));
+    };
+
+    //Hàm render kết quả
+    const renderResult = (attrs) => {
+        return (
+            <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
+                <PopperWrapper className={cx('menu-popper')}>
+                    {history.length > 1 && <Header title={current.title} onBack={handleBack} />}
+                    <div className={cx('menu-body')}>{renderItems()}</div>
+                </PopperWrapper>
+            </div>
+        );
+    };
+
+    //Reset lại về trang đầu tiên của menu khi ẩn
+    const handleReset = () => {
+        setHistory((prev) => prev.slice(0, 1));
+    };
+
     return (
         <Tippy
             interactive
@@ -55,28 +77,8 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultfn 
             delay={[0, 700]} //show luôn, hide sau 700ms
             offset={[12, 8]} //chiều ngang, chiều cao cách so với thẻ cha
             placement="bottom-end"
-            render={(attrs) => {
-                return (
-                    <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
-                        <PopperWrapper className={cx('menu-popper')}>
-                            {history.length > 1 && (
-                                <Header
-                                    title={current.title}
-                                    onBack={() => {
-                                        //xóa đi phần tử cuối
-                                        //cắt lấy từ 0 đến phần tử gần cuối
-                                        setHistory((prev) => prev.slice(0, prev.length - 1));
-                                    }}
-                                />
-                            )}
-                            <div className={cx('menu-body')}>{renderItems()}</div>
-                        </PopperWrapper>
-                    </div>
-                );
-            }}
-            onHidden={() => {
-                setHistory((prev) => prev.slice(0, 1));
-            }}
+            render={renderResult}
+            onHidden={handleReset}
             hideOnClick={hideOnClick}
         >
             {children}

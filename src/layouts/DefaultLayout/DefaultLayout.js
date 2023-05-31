@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 //Những layout khác chứa hết trong này
 import Header from '~/layouts/components/Header';
-import SlideBar from './SlideBar';
+import SlideBar from '../components/SlideBar';
 import styles from './DefaultLayout.module.scss';
 
 const cx = classNames.bind(styles);

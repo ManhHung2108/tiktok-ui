@@ -1,12 +1,13 @@
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 
 //Những layout khác chứa hết trong này
-import Header from '~/components/Layout/components/Header';
+import Header from '~/layouts/components/Header';
 import SlideBar from './SlideBar';
 import styles from './DefaultLayout.module.scss';
 
 const cx = classNames.bind(styles);
-export default function DefaultLayout({ children }) {
+function DefaultLayout({ children }) {
     return (
         <div className={cx('wrapper')}>
             <Header />
@@ -17,3 +18,9 @@ export default function DefaultLayout({ children }) {
         </div>
     );
 }
+
+DefaultLayout.protoTypes = {
+    children: PropTypes.node.isRequired,
+};
+
+export default DefaultLayout;

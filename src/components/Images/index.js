@@ -1,5 +1,7 @@
 import classNames from 'classnames';
 import { useState, forwardRef } from 'react';
+import PropTypes from 'prop-types';
+
 import images from '~/assets/images';
 import styles from './Image.module.scss';
 //không cần sử dụng cx vì có mỗi 1 class
@@ -27,6 +29,13 @@ function Image({ src, alt, className, fullback: customFullback = images.noImage,
         />
     );
 }
+
+Image.protoTypes = {
+    src: PropTypes.string,
+    alt: PropTypes.string,
+    className: PropTypes.string,
+    fullback: PropTypes.string,
+};
 
 export default forwardRef(Image);
 //bê ref của img forward ra cho component Image

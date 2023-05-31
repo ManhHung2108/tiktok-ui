@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react/headless';
-
+import PropTypes from 'prop-types';
 //của chúng ta
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import MenuItem from './MenuItem';
@@ -21,12 +21,12 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultfn 
     //phần tử cuối của obj
     const current = history[history.length - 1];
 
+    //Hàm render
     const renderItems = () => {
         return current.data.map((item, index) => {
             //check xem có children không
             //!! chuyển đổi sang kiểu bool
             const isParent = !!item.children;
-
             return (
                 <MenuItem
                     key={index}
@@ -37,7 +37,7 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultfn 
 
                             setHistory((prev) => [...prev, item.children]);
                             //push thêm vào mảng tí mới quay lại được
-                            //nếu setState sẽ mất
+                            //nếu setState không thêm mảng sẽ mất
                         } else {
                             onChange(item);
                         }
@@ -47,6 +47,7 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultfn 
         });
     };
 
+    //
     return (
         <Tippy
             interactive
@@ -60,7 +61,7 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultfn 
                         <PopperWrapper className={cx('menu-popper')}>
                             {history.length > 1 && (
                                 <Header
-                                    title="Language"
+                                    title={current.title}
                                     onBack={() => {
                                         //xóa đi phần tử cuối
                                         //cắt lấy từ 0 đến phần tử gần cuối
@@ -82,5 +83,12 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultfn 
         </Tippy>
     );
 }
+
+Menu.propsTypes = {
+    children: PropTypes.node.isRequired,
+    items: PropTypes.array,
+    hideOnClick: PropTypes.bool,
+    onChange: PropTypes.func,
+};
 
 export default Menu;

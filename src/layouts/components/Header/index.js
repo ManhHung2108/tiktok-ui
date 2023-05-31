@@ -17,7 +17,7 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
 //files
-import routesConfig from '~/config/routes';
+import config from '~/config';
 import Button from '~/components/Button';
 import styles from './Header.module.scss';
 import images from '~/assets/images';
@@ -75,7 +75,7 @@ const MENU_ITEMS = [
 ];
 
 // console.log(images.logo);
-export default function Header() {
+function Header() {
     const currentUser = true;
 
     //Handle logic
@@ -117,9 +117,12 @@ export default function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <Link to={routesConfig.home} className={cx('logo-link')}>
+                <Link to={config.routes.home} className={cx('logo-link')}>
                     <img src={images.logo} alt="Tiktok" />
                 </Link>
+
+                {/* <Button>{['F8', ' ', 'React']}</Button>  */}
+                {/* <Button></Button> */}
 
                 {/* Using a wrapper <div> tag around the reference element solves this by creating a new parentNode context.  */}
                 <div>
@@ -154,6 +157,7 @@ export default function Header() {
                             <Button primary>Log in</Button>
                         </>
                     )}
+
                     <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {currentUser ? (
                             <Image
@@ -173,3 +177,4 @@ export default function Header() {
         </header>
     );
 }
+export default Header;

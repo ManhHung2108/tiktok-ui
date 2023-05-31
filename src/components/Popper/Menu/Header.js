@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 
 import styles from './Menu.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,5 +17,10 @@ function Header({ title, onBack }) {
         </header>
     );
 }
+
+Header.protoTypes = {
+    title: PropTypes.string.isRequired, //luôn luôn được truyền
+    onBack: PropTypes.func.isRequired, //lúc nào cũng phải quay lại
+};
 
 export default Header;

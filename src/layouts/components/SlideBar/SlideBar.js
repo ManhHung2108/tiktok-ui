@@ -11,6 +11,7 @@ import {
     LiveIcon,
     LiveActiveIcon,
 } from '~/components/Icons';
+import SuggestedAcounts from '~/layouts/components/SuggestedAccounts';
 
 const cx = classNames.bind(styles);
 export default function SlideBar() {
@@ -27,6 +28,8 @@ export default function SlideBar() {
                 />
                 <MenuItem title="Live" to={config.routes.live} icon={<LiveIcon />} activeIcon={<LiveActiveIcon />} />
             </Menu>
+            <SuggestedAcounts label="Suggested accounts" />
+            <SuggestedAcounts label="Following accounts" />
         </aside>
     );
 }

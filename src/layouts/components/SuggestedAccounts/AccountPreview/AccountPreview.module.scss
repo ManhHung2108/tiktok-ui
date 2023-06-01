@@ -1,0 +1,48 @@
+.wrapper {
+    width: 320px;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.avartar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.follow-btn {
+    padding: 8px 16px;
+}
+
+.body {
+    margin-top: 12px;
+    color: #161823;
+}
+.name {
+    font-size: 1.4rem;
+}
+.nick-name {
+    font-size: 1.8rem;
+}
+
+.check-icon {
+    font-size: 1.4rem;
+    color: #20d5ec;
+    margin-left: 4px;
+}
+
+.analytics {
+    margin-top: 10px;
+    font-size: 1.6rem;
+}
+//class là value đứng sau 1 class là value
+.value ~ .value {
+    padding-left: 20px;
+}
+.label {
+    color: #161823bf;
+}
